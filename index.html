@@ -1,78 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Document Viewer</title>
-    <style>
-        body {
-            font-family: Arial;
-            margin: 0;
-            background: #f4f4f4;
-        }
+<meta charset="UTF-8">
+<title>Dancing Toy</title>
 
-        header {
-            background: #333;
-            color: white;
-            padding: 10px;
-            text-align: center;
-        }
+<style>
+body {
+    background: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
-        .nav {
-            text-align: center;
-            margin: 10px;
-        }
+/* Toy body */
+.toy {
+    position: relative;
+    width: 100px;
+    height: 150px;
+}
 
-        .nav button {
-            padding: 10px 15px;
-            margin: 5px;
-            border: none;
-            background: #007bff;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-        }
+/* Head */
+.head {
+    width: 60px;
+    height: 60px;
+    background: yellow;
+    border-radius: 50%;
+    margin: auto;
+}
 
-        .nav button:hover {
-            background: #0056b3;
-        }
+/* Eyes */
+.eye {
+    width: 10px;
+    height: 10px;
+    background: black;
+    border-radius: 50%;
+    position: absolute;
+    top: 20px;
+}
 
-        iframe {
-            width: 100%;
-            height: 600px;
-            border: none;
-        }
-    </style>
+.eye.left { left: 20px; }
+.eye.right { right: 20px; }
+
+/* Body */
+.body {
+    width: 80px;
+    height: 80px;
+    background: orange;
+    margin: auto;
+    border-radius: 10px;
+}
+
+/* Arms */
+.arm {
+    width: 15px;
+    height: 60px;
+    background: yellow;
+    position: absolute;
+    top: 60px;
+}
+
+.arm.left {
+    left: -10px;
+    transform-origin: top;
+}
+
+.arm.right {
+    right: -10px;
+    transform-origin: top;
+}
+
+/* Legs */
+.leg {
+    width: 15px;
+    height: 60px;
+    background: yellow;
+    position: absolute;
+    bottom: -60px;
+}
+
+.leg.left { left: 20px; }
+.leg.right { right: 20px; }
+
+/* Dancing animation */
+@keyframes dance {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(10deg); }
+    50% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@keyframes armMove {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(40deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@keyframes legMove {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(-30deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* Apply animations */
+.toy {
+    animation: dance 1s infinite;
+}
+
+.arm.left {
+    animation: armMove 1s infinite;
+}
+
+.arm.right {
+    animation: armMove 1s infinite reverse;
+}
+
+.leg.left {
+    animation: legMove 1s infinite;
+}
+
+.leg.right {
+    animation: legMove 1s infinite reverse;
+}
+</style>
+
 </head>
 
 <body>
 
-<header>
-    <h2>Word Document Viewer (Google Drive)</h2>
-</header>
+<div class="toy">
+    <div class="head">
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+    </div>
 
-<div class="nav">
-    <button onclick="loadPage(1)">Page 1</button>
-    <button onclick="loadPage(2)">Page 2</button>
-    <button onclick="loadPage(3)">Page 3</button>
+    <div class="body"></div>
+
+    <div class="arm left"></div>
+    <div class="arm right"></div>
+
+    <div class="leg left"></div>
+    <div class="leg right"></div>
 </div>
 
-<iframe id="viewer"></iframe>
-
-<script>
-    const fileId = "1ABCXYZ123"; // 🔴 Replace with your Google Drive File ID
-
-    function loadPage(page) {
-        // Google viewer URL
-        let url = "https://docs.google.com/gview?url=" +
-                  "https://drive.google.com/uc?export=download&id=" + fileId +
-                  "&embedded=true";
-
-        document.getElementById("viewer").src = url;
-    }
-
-    // Load first page by default
-    loadPage(1);
-</script>
-
 </body>
-  </html>
+</html>
